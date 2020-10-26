@@ -1,28 +1,39 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Tareas @enviandoTarea='procesarTarea'/>
+    <Lista :datosTareas='nuevasTareas' @eliminarTarea='quitarTarea'/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Tareas from './components/Tareas.vue';
+import Lista from './components/Lista.vue';
+
 
 export default {
   name: 'App',
+  data() {
+    return {
+      nuevasTareas: []
+    }
+  },
   components: {
-    HelloWorld
-  }
+    Tareas,
+    Lista
+  },
+  methods: {
+    procesarTarea(datos){
+      console.log(datos);
+      this.nuevasTareas.push(datos);
+    },
+    quitarTarea(index){
+      this.nuevasTareas.splice(index,1);
+      this.$swal('¡Tarea Eliminada!');
+    }
+  },
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
